@@ -47,13 +47,19 @@
             <br />>
             <div class="row">
               <div class="col-7">
-                <q-input label="Vocabulary" v-model="data.vocab" standout filled bg-color="grey-2" />
+                <q-input
+                  label="Vocabulary"
+                  v-model.trim="data.vocab"
+                  standout
+                  filled
+                  bg-color="grey-2"
+                />
               </div>
               <div class="col-7 q-mt-md">
                 <q-input
                   label="Definition"
                   standout
-                  v-model="data.meaning"
+                  v-model.trim="data.meaning"
                   filled
                   bg-color="grey-2"
                 />
@@ -78,13 +84,19 @@
             <br />>
             <div class="row">
               <div class="col-7">
-                <q-input label="Vocabulary" v-model="data.vocab" standout filled bg-color="grey-2" />
+                <q-input
+                  label="Vocabulary"
+                  v-model.trim="data.vocab"
+                  standout
+                  filled
+                  bg-color="grey-2"
+                />
               </div>
               <div class="col-7 q-mt-md">
                 <q-input
                   label="Definition"
                   standout
-                  v-model="data.meaning"
+                  v-model.trim="data.meaning"
                   filled
                   bg-color="grey-2"
                 />
@@ -114,8 +126,12 @@
                     <th style="width: 50px;">No.</th>
                     <th style="width: 200px;">Vocabulary</th>
                     <th style="width: 450px;">Meaning</th>
-                    <th style="width: 100px;">delete</th>
-                    <th style="width: 100px">Edit</th>
+                    <th style="width: 100px;">
+                      <div align="center">delete</div>
+                    </th>
+                    <th style="width: 100px" align="center">
+                      <div align="center">edit</div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -124,12 +140,12 @@
                     <td style="width: 200px;">{{item.vocab}}</td>
                     <td style="width: 450px;">{{item.meaning}}</td>
                     <td style="width: 100px">
-                      <div class="cursor-pointer" @click="deleteBtn(item.id)">
+                      <div class="cursor-pointer" align="center" @click="deleteBtn(item.id)">
                         <u>delete</u>
                       </div>
                     </td>
                     <td style="width: 80px">
-                      <div class="cursor-pointer" @click="editBtn(item.id)">
+                      <div class="cursor-pointer" @click="editBtn(item.id)" align="center">
                         <u>edit</u>
                       </div>
                     </td>
