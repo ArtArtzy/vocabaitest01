@@ -5,6 +5,9 @@
         <img src="../statics/hal.jpg" style="width:100%" />
         <div align="center">
           <q-btn color="blue-6 text-h6 q-mt-md" class="btn" @click="newVocab()">Learn new words</q-btn>
+          <br />
+          <br />
+          learnt word : {{learntWord}}
         </div>
       </div>
       <div class="col-8">
@@ -27,7 +30,7 @@
               </tr>
             </table>
             <br />
-            <q-btn color="deep-orange" glossy>Learnt</q-btn>
+            <q-btn color="deep-orange" glossy @click="learnIt()">Learnt</q-btn>
             <br />
           </div>
         </div>
@@ -42,7 +45,9 @@ export default {
   data() {
     return {
       mode: 0,
-      vocabList: []
+      vocabList: [],
+      showVocab: 0,
+      learntWord: 0
     };
   },
   methods: {
@@ -54,20 +59,21 @@ export default {
         .doc("test01")
         .collection("vocab")
         .where("wordType", "==", "unlearn")
+        .limit(5)
         .get();
-      let showVocab = 0;
+      this.showVocab = 0;
       if (vocabData.size >= 5) {
-        showVocab = 5;
+        this.showVocab = 5;
       } else {
-        showVocab = vocabData.size;
+        this.showVocab = vocabData.size;
       }
-      for (let i = 0; i < showVocab; i++) {
+      for (let i = 0; i < this.showVocab; i++) {
         let dataKey = {
           vocab: vocabData.docs[i].data().vocab,
           meaning: vocabData.docs[i].data().meaning,
           key: vocabData.docs[i].id
         };
-        console.log(dataKey);
+
         this.vocabList.push(dataKey);
       }
     },
@@ -79,7 +85,34 @@ export default {
       msg.text = vocab;
 
       speechSynthesis.speak(msg);
+    },
+    async learnIt() {
+      for (let i = 0; i < this.showVocab; i++) {
+        await db
+          .collection("user")
+          .doc("test01")
+          .collection("vocab")
+          .doc(this.vocabList[i].key)
+          .update({
+            wordType: "learnt"
+          });
+      }
+      this.showWordInfo();
+      this.newVocab();
+    },
+    showWordInfo() {
+      db.collection("user")
+        .doc("test01")
+        .collection("vocab")
+        .where("wordType", "==", "learnt")
+        .get()
+        .then(doc => {
+          this.learntWord = doc.size;
+        });
     }
+  },
+  mounted() {
+    this.showWordInfo();
   }
 };
 </script>

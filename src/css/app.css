@@ -1,1 +1,13 @@
 /* app global css */
+@font-face{
+font-family: promptR;
+src:url(../assets/Prompt-Regular.ttf)
+}
+body{
+    font-family:promptR;
+    color:#FFFFFF;
+    font-size: 16;
+}
+.textcolor{
+    color:#E5D4BA;
+}

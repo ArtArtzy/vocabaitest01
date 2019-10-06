@@ -11,9 +11,9 @@
           aria-label="Menu"
         />
 
-        <q-toolbar-title>Penny AI</q-toolbar-title>
+        <q-toolbar-title>Winner LAB</q-toolbar-title>
 
-        <div>Alpha 1.0</div>
+        <div>Alpha 0.1</div>
       </q-toolbar>
     </q-header>
 
@@ -24,7 +24,7 @@
       content-class="bg-blue-grey-10 text-grey-2"
     >
       <div class="bg-deep-purple shadow-4 q-py-md">
-        <div class="text-h4" align="center">GAN Model</div>
+        <div class="text-h4" align="center">PENNY AI</div>
         <div class="text-body1" align="center">Genrative Adversarial Networks</div>
       </div>
 
@@ -58,13 +58,47 @@
         </table>
       </div>
 
-      <div class="q-pa-md bg-indigo-9 borderm">
+      <div
+        class="q-pa-md cursor-pointer borderm"
+        :class="{'bg-indigo-9' : menuIndex != 3, 'bg-green-6' : menuIndex ==3}"
+        @click="learningMenu()"
+      >
         <table>
           <tr>
             <td style="width:50px">
               <q-icon name="fas fa-running" size="md" />
             </td>
-            <td>Simulation</td>
+            <td>Learning Simulation</td>
+          </tr>
+        </table>
+      </div>
+
+      <div
+        class="q-pa-md cursor-pointer borderm"
+        :class="{'bg-indigo-9' : menuIndex != 4, 'bg-green-6' : menuIndex ==3}"
+        @click="learningMenu()"
+      >
+        <table>
+          <tr>
+            <td style="width:50px">
+              <q-icon name="fas fa-running" size="md" />
+            </td>
+            <td>Pracitce Simulation</td>
+          </tr>
+        </table>
+      </div>
+
+      <div
+        class="q-pa-md cursor-pointer borderm"
+        :class="{'bg-indigo-9' : menuIndex != 4, 'bg-green-6' : menuIndex ==3}"
+        @click="learningMenu()"
+      >
+        <table>
+          <tr>
+            <td style="width:50px">
+              <q-icon name="fas fa-running" size="md" />
+            </td>
+            <td>Release Note</td>
           </tr>
         </table>
       </div>
@@ -94,6 +128,10 @@ export default {
     settingMenu() {
       this.$router.push("/setting");
       this.menuIndex = 2;
+    },
+    learningMenu() {
+      this.$router.push("/learning");
+      this.menuIndex = 3;
     }
   }
 };

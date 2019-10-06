@@ -18,10 +18,29 @@ var config = {
 firebase.initializeApp(config);
 export const db = firebase.firestore();
 
-db.settings({
-  timestampsInSnapshots: true
-});
+Vue.mixin({
+  methods: {
+    notifyRed(messages) {
+      this.$q.notify({
+        color: "negative",
+        position: "top",
+        icon: "error",
+        message: messages,
+        timeout: 800
+      });
+    },
+    notifyGreen(messages) {
+      this.$q.notify({
+        color: "secondary",
+        position: "top",
+        icon: "done",
+        message: messages,
+        timeout: 800
+      });
+    },
+  },
 
+})
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation
