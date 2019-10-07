@@ -133,22 +133,10 @@
           <q-card-section>
             <div class="row q-mx-xl justify-center">
               <div class="col-12">
-                <q-input
-                  label="Vocabulary"
-                  v-model.trim="data.vocab"
-                  standout
-                  filled
-                  bg-color="grey-2"
-                />
+                <q-input label="Vocabulary" v-model.trim="data.vocab" outlined bg-color="grey-2" />
               </div>
               <div class="col-12 q-mt-md">
-                <q-input
-                  label="Meaning"
-                  standout
-                  v-model.trim="data.meaning"
-                  filled
-                  bg-color="grey-2"
-                />
+                <q-input label="Meaning" v-model.trim="data.meaning" outlined bg-color="grey-2" />
               </div>
               <div class="col-7 q-mt-md" align="center">
                 <q-btn glossy class="btn bgamber" @click="saveBtn()">Save</q-btn>
@@ -216,7 +204,7 @@ export default {
     async saveBtn() {
       if (this.data.vocab.length > 0 && this.data.meaning.length) {
         await db.collection("vocab").add(this.data);
-        this.notifyGreen("Save completely");
+        this.notifyGreen("บันทึกข้อมูลเสร็จสิ้น");
         this.data.vocab = "";
         this.data.meaning = "";
         this.loadData();
@@ -224,14 +212,7 @@ export default {
         this.notifyRed("กรุณากรอกข้อมูลให้ครบ");
       }
     },
-    showListBtn() {
-      this.mode = 2;
-    },
-    cancelBtn() {
-      this.data.vocab = "";
-      this.data.meaning = "";
-      this.mode = 2;
-    },
+
     async loadData() {
       this.vocabList = [];
       let doc = await db
@@ -284,7 +265,7 @@ export default {
         message: "Update completely",
         timeout: 800
       });
-      this.mode = 2;
+
       this.loadData();
     }
   },
