@@ -12,6 +12,7 @@ const routes = [
       { path: '/dataentry', component: () => import('pages/dataentry.vue') },
       { path: '/setting', component: () => import('pages/setting.vue') },
       { path: '/learning', component: () => import('pages/learning.vue') },
+      { path: '/note', component: () => import('pages/releasenote.vue') },
     ]
   }
 ]
