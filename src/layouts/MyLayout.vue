@@ -76,6 +76,7 @@
       <div
         class="menuinactive text-center q-pt-sm q-pl-md text-body1 cursor-pointer"
         :class="{'bgmenu' : menuIndex == 4}"
+        @click="simulationMenu()"
       >
         <table>
           <tr>
@@ -163,6 +164,10 @@ export default {
     noteMenu() {
       this.$router.push("/note");
       this.menuIndex = 6;
+    },
+    simulationMenu() {
+      this.$router.push("/simulation");
+      this.menuIndex = 4;
     }
   }
 };

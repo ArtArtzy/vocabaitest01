@@ -8,10 +8,10 @@
           <div class="text-center text-h6 q-mt-md">Data control</div>
           <div class="boxcontrol q-py-md q-mt-md" align="center">
             <div>
-              <q-btn style="width:80%" class="btn text-black" @click="resetBtn()">Reset</q-btn>
+              <q-btn style="width:80%" class="btn text-black" @click="resetBtn()" glossy>Reset</q-btn>
             </div>
             <div class="q-py-md">
-              <q-btn style="width:80%" class="btn text-black">Sync</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>Sync</q-btn>
             </div>
           </div>
         </div>
@@ -20,66 +20,33 @@
           <div class="text-center text-h6 q-mt-md">Time control</div>
           <div class="boxcontrol q-py-md q-mt-md" align="center">
             <div>
-              <q-btn style="width:80%" class="btn text-black">+1 Days</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+1 Days</q-btn>
             </div>
             <div class="q-py-md">
-              <q-btn style="width:80%" class="btn text-black">+3 Days</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+3 Days</q-btn>
             </div>
             <div class="q-pb-md">
-              <q-btn style="width:80%" class="btn text-black">+7 Days</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+7 Days</q-btn>
             </div>
             <div class="q-pb-md">
-              <q-btn style="width:80%" class="btn text-black">+1 Week</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+1 Week</q-btn>
             </div>
             <div class="q-pb-md">
-              <q-btn style="width:80%" class="btn text-black">+2 Week</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+2 Week</q-btn>
             </div>
             <div class="q-pb-md">
-              <q-btn style="width:80%" class="btn text-black">+4 Week</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+4 Week</q-btn>
             </div>
             <div class="q-pb-md">
-              <q-btn style="width:80%" class="btn text-black">+6 Week</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+6 Week</q-btn>
             </div>
             <div class="q-pb-md">
-              <q-btn style="width:80%" class="btn text-black">+8 Week</q-btn>
+              <q-btn style="width:80%" class="btn text-black" glossy>+8 Week</q-btn>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-4">
-        <img src="../statics/hal.jpg" style="width:100%" />
-        <div>
-          <div
-            class="q-ma-lg text-h6 text-green-6"
-            align="center"
-          >Human...you can change your life if you wannna</div>
-          <div align="center">
-            <q-btn color="blue-6 text-h6" class="btn" @click="syncData()">Grow up knowledge</q-btn>
-          </div>
-          <div align="center">
-            <q-btn color="blue-6 text-h6 q-mt-md" class="btn" @click="showListBtn()">Time travel</q-btn>
-          </div>
-          <div align="center">
-            <q-btn color="blue-6 text-h6 q-mt-md" class="btn" @click="resetBtn()">Reset your life</q-btn>
-          </div>
-        </div>
-      </div>
-    <div class="col-8">-->
-    <!-- Time travel -->
-    <!-- <div>
-          <div class="screen q-mt-lg q-pa-lg" v-show="mode==0">
-            > wait a new command...
-            <br />>
-          </div>
-          <div class="screen q-mt-lg q-pa-lg" v-show="mode==1">
-            > reset your life...
-            <br />>
-          </div>
-        </div>
-      </div>
-    </div>-->
   </div>
 </template>
 
@@ -93,6 +60,7 @@ export default {
   },
   methods: {
     async resetBtn() {
+      this.$q.loading.show({ delay: 400 });
       this.mode = 1;
       await db
         .collection("user")
@@ -107,7 +75,7 @@ export default {
         .collection("vocab")
         .get();
       for (const data of docData.docs) {
-        console.log(data.id);
+        // console.log(data.id);
         await db
           .collection("user")
           .doc("test01")
@@ -130,6 +98,7 @@ export default {
             wordType: "unlearn"
           });
       }
+      this.$q.loading.hide();
       this.notifyGreen("รีเซตข้อมูลเรียบร้อย");
     }
   }

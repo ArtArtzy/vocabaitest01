@@ -6,61 +6,26 @@
         <div class="row justify-between">
           <div class="text-h6 q-ma-md">Learning | Total {{learntWord}} words</div>
           <div class="q-mr-md">
-            <q-btn icon="fas fa-bookmark" class="addbtn" size="lg" @click="newVocab()"></q-btn>
+            <q-btn icon="fas fa-bookmark" class="addbtn text-black" size="lg" @click="newVocab()"></q-btn>
           </div>
         </div>
         <div class="bg-black" style="height:5px; width:100%"></div>
         <div class="row col-12">
           <div class="col-3" v-for="(item,index) in vocabList" :key="index">
-            <div class="cardbox row cursor-pointer">
+            <div class="cardbox row cursor-pointer" @click="soundRun(item.vocab)">
               <div class="col-12 row">
-                <div class="col-12 q-pa-md text-h4 text-center">{{item.vocab}}</div>
-                <div class="col-12 q-pa-md text-body1 text-center">{{item.meaning}}</div>
+                <div class="col-12 q-pa-md text-h4 text-center text-black">{{item.vocab}}</div>
+                <div class="col-12 q-pb-md text-body1 text-center text-black">{{item.meaning}}</div>
               </div>
             </div>
+          </div>
+          <div class="col-12" align="center">
+            <q-btn glossy class="btn text-black" @click="learnIt()">I knew these words</q-btn>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="bg-black bgdata text-white">
-    <div class="row">
-      <div class="col-4">
-        <img src="../statics/hal.jpg" style="width:100%" />
-        <div align="center">
-          <q-btn color="blue-6 text-h6 q-mt-md" class="btn" @click="newVocab()">Learn new words</q-btn>
-          <br />
-          <br />
-          learnt word : {{learntWord}}
-        </div>
-      </div>
-  <div class="col-8">-->
-  <!-- Wait -->
-  <!-- <div>
-          <div class="screen q-mt-lg q-pa-lg" v-show="mode==0">
-            > wait a new command...
-            <br />>
-  </div>-->
-  <!-- Learn -->
-  <!-- <div class="screen q-mt-lg q-pa-lg" v-show="mode==1">
-            <table>
-              <tr v-for="(item,index) in vocabList" :key="index">
-                <td style="width:120px;">
-                  <div @click="soundRun(item.vocab)" class="cursor-pointer">
-                    <u>{{item.vocab}}</u>
-                  </div>
-                </td>
-                <td>{{item.meaning}}</td>
-              </tr>
-            </table>
-            <br />
-            <q-btn color="deep-orange" glossy @click="learnIt()">Learnt</q-btn>
-            <br />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>-->
 </template>
 
 <script>
@@ -76,6 +41,7 @@ export default {
   },
   methods: {
     async newVocab() {
+      this.$q.loading.show({ delay: 400 });
       this.mode = 1;
       this.vocabList = [];
       let vocabData = await db
@@ -100,6 +66,8 @@ export default {
 
         this.vocabList.push(dataKey);
       }
+      this.showWordInfo();
+      this.$q.loading.hide();
     },
     soundRun(vocab) {
       const msg = new SpeechSynthesisUtterance();
@@ -111,6 +79,7 @@ export default {
       speechSynthesis.speak(msg);
     },
     async learnIt() {
+      this.$q.loading.show({ delay: 400 });
       for (let i = 0; i < this.showVocab; i++) {
         await db
           .collection("user")
@@ -121,7 +90,8 @@ export default {
             wordType: "learnt"
           });
       }
-      this.showWordInfo();
+      this.$q.loading.hide();
+
       this.newVocab();
     },
     showWordInfo() {
@@ -137,6 +107,7 @@ export default {
   },
   mounted() {
     this.showWordInfo();
+    this.newVocab();
   }
 };
 </script>
@@ -158,8 +129,13 @@ export default {
   color: #1a2945;
 }
 .cardbox {
+  background-color: #f3f0ea;
   border: 2px solid black;
   margin: 15px;
   border-radius: 15px;
+}
+.btn {
+  width: 250px;
+  background-color: #f8a426;
 }
 </style>
