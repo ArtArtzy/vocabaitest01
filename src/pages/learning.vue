@@ -1,5 +1,29 @@
 <template>
-  <div class="bg-black bgdata text-light-green-2">
+  <div class="bg-black text-white">
+    <div class="row">
+      <!-- vocab list -->
+      <div class="bginside q-ma-md">
+        <div class="row justify-between">
+          <div class="text-h6 q-ma-md">Learning | Total {{learntWord}} words</div>
+          <div class="q-mr-md">
+            <q-btn icon="fas fa-bookmark" class="addbtn" size="lg" @click="newVocab()"></q-btn>
+          </div>
+        </div>
+        <div class="bg-black" style="height:5px; width:100%"></div>
+        <div class="row col-12">
+          <div class="col-3" v-for="(item,index) in vocabList" :key="index">
+            <div class="cardbox row cursor-pointer">
+              <div class="col-12 row">
+                <div class="col-12 q-pa-md text-h4 text-center">{{item.vocab}}</div>
+                <div class="col-12 q-pa-md text-body1 text-center">{{item.meaning}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="bg-black bgdata text-white">
     <div class="row">
       <div class="col-4">
         <img src="../statics/hal.jpg" style="width:100%" />
@@ -10,15 +34,15 @@
           learnt word : {{learntWord}}
         </div>
       </div>
-      <div class="col-8">
-        <!-- Wait -->
-        <div>
+  <div class="col-8">-->
+  <!-- Wait -->
+  <!-- <div>
           <div class="screen q-mt-lg q-pa-lg" v-show="mode==0">
             > wait a new command...
             <br />>
-          </div>
-          <!-- Learn -->
-          <div class="screen q-mt-lg q-pa-lg" v-show="mode==1">
+  </div>-->
+  <!-- Learn -->
+  <!-- <div class="screen q-mt-lg q-pa-lg" v-show="mode==1">
             <table>
               <tr v-for="(item,index) in vocabList" :key="index">
                 <td style="width:120px;">
@@ -36,7 +60,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -59,11 +83,11 @@ export default {
         .doc("test01")
         .collection("vocab")
         .where("wordType", "==", "unlearn")
-        .limit(5)
+        .limit(8)
         .get();
       this.showVocab = 0;
-      if (vocabData.size >= 5) {
-        this.showVocab = 5;
+      if (vocabData.size >= 8) {
+        this.showVocab = 8;
       } else {
         this.showVocab = vocabData.size;
       }
@@ -118,17 +142,24 @@ export default {
 </script>
 
 <style scoped>
-.bgdata {
-  height: calc(100vh - 50px);
+.bginside {
+  height: calc(100vh - 82px);
+  background-color: #1a2945;
+  width: 100%;
 }
-.btn {
-  width: 250px;
+.brx {
+  border: 1px solid red;
 }
-.screen {
-  width: 90%;
-  background-color: #333d49;
-  height: 700px;
-  border-radius: 25px;
-  border: 5px solid grey;
+.addbtn {
+  background-color: #f8a426;
+  height: 45px;
+  margin-top: 6px;
+  width: 50px;
+  color: #1a2945;
+}
+.cardbox {
+  border: 2px solid black;
+  margin: 15px;
+  border-radius: 15px;
 }
 </style>

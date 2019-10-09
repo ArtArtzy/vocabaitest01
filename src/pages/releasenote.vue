@@ -6,18 +6,19 @@
           <div class="text-h6 q-ma-md">Release Note</div>
         </div>
         <div class="bg-black" style="height:5px; width:100%"></div>
-        <div style="height:200px" class="releasebg1">
-          <table style="width:100%">
-            <tr>
-              <td>
-                <div class="roundbanner text-center text-black">
-                  <div class="text-h2 q-mt-sm">&alpha;</div>
-                  <div class="text-h6">1.0.0</div>
-                </div>
-              </td>
-              <td>123</td>
-            </tr>
-          </table>
+        <div style="height:120px" class="releasebg1 row">
+          <div style="width:100px">
+            <div class="roundbanner text-center text-black">
+              <div class="text-h3 q-mt-sm">&alpha;</div>
+              <div class="text-body1">1.0.0</div>
+            </div>
+          </div>
+          <div style="width:calc(100% - 200px)" class="q-pa-lg row">
+            <div class="col-12 self-center">
+              <div>- เพิ่มระบบ Data Entry</div>
+              <div>- เพิ่มระบบ Release note</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -42,13 +43,13 @@ export default {};
   background-color: #3e547d;
 }
 .roundbanner {
-  height: 120px;
-  width: 120px;
-  border-radius: 60px;
+  height: 80px;
+  width: 80px;
+  border-radius: 40px;
   background-color: #e5d4ba;
   line-height: 30px;
   position: relative;
-  top: 30px;
+  top: 10px;
   left: 30px;
 }
 </style>

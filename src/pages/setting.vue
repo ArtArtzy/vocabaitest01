@@ -1,6 +1,53 @@
 <template>
-  <div class="bg-black bgdata text-light-green-2">
+  <div class="bg-black text-white">
     <div class="row">
+      <!-- control panel -->
+      <div class="bginside q-ma-md row">
+        <div class="col-1"></div>
+        <div class="col-4">
+          <div class="text-center text-h6 q-mt-md">Data control</div>
+          <div class="boxcontrol q-py-md q-mt-md" align="center">
+            <div>
+              <q-btn style="width:80%" class="btn text-black" @click="resetBtn()">Reset</q-btn>
+            </div>
+            <div class="q-py-md">
+              <q-btn style="width:80%" class="btn text-black">Sync</q-btn>
+            </div>
+          </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-4">
+          <div class="text-center text-h6 q-mt-md">Time control</div>
+          <div class="boxcontrol q-py-md q-mt-md" align="center">
+            <div>
+              <q-btn style="width:80%" class="btn text-black">+1 Days</q-btn>
+            </div>
+            <div class="q-py-md">
+              <q-btn style="width:80%" class="btn text-black">+3 Days</q-btn>
+            </div>
+            <div class="q-pb-md">
+              <q-btn style="width:80%" class="btn text-black">+7 Days</q-btn>
+            </div>
+            <div class="q-pb-md">
+              <q-btn style="width:80%" class="btn text-black">+1 Week</q-btn>
+            </div>
+            <div class="q-pb-md">
+              <q-btn style="width:80%" class="btn text-black">+2 Week</q-btn>
+            </div>
+            <div class="q-pb-md">
+              <q-btn style="width:80%" class="btn text-black">+4 Week</q-btn>
+            </div>
+            <div class="q-pb-md">
+              <q-btn style="width:80%" class="btn text-black">+6 Week</q-btn>
+            </div>
+            <div class="q-pb-md">
+              <q-btn style="width:80%" class="btn text-black">+8 Week</q-btn>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
       <div class="col-4">
         <img src="../statics/hal.jpg" style="width:100%" />
         <div>
@@ -19,9 +66,9 @@
           </div>
         </div>
       </div>
-      <div class="col-8">
-        <!-- Time travel -->
-        <div>
+    <div class="col-8">-->
+    <!-- Time travel -->
+    <!-- <div>
           <div class="screen q-mt-lg q-pa-lg" v-show="mode==0">
             > wait a new command...
             <br />>
@@ -32,7 +79,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -59,17 +106,20 @@ export default {
         .doc("test01")
         .collection("vocab")
         .get();
-
-      docData.forEach(async data => {
-        db.collection("user")
+      for (const data of docData.docs) {
+        console.log(data.id);
+        await db
+          .collection("user")
           .doc("test01")
           .collection("vocab")
           .doc(data.id)
           .delete();
-      });
+      }
+
       let vocabData = await db.collection("vocab").get();
-      vocabData.forEach(async data => {
-        db.collection("user")
+      for (const data of vocabData.docs) {
+        await db
+          .collection("user")
           .doc("test01")
           .collection("vocab")
           .doc(data.id)
@@ -79,15 +129,8 @@ export default {
             reviewDate: 0,
             wordType: "unlearn"
           });
-      });
-
-      this.$q.notify({
-        color: "secondary",
-        position: "bottom",
-        icon: "done",
-        message: "reset completely",
-        timeout: 800
-      });
+      }
+      this.notifyGreen("รีเซตข้อมูลเรียบร้อย");
     }
   }
 };
@@ -97,14 +140,16 @@ export default {
 .bgdata {
   height: calc(100vh - 50px);
 }
-.btn {
-  width: 250px;
+.bginside {
+  height: calc(100vh - 82px);
+  background-color: #1a2945;
+  width: 100%;
 }
-.screen {
-  width: 90%;
-  background-color: #333d49;
-  height: 700px;
-  border-radius: 25px;
-  border: 5px solid grey;
+.boxcontrol {
+  background-color: #f3f0ea;
+  height: calc(100vh - 300px);
+}
+.btn {
+  background-color: #f8a426;
 }
 </style>
